@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
+// Composant React qui affiche un graphique à barres horizontales pour visualiser les revenus bruts par catégorie de produit
 function MyComponent() {
-  const [data, setData] = useState([]);
+ // Initialisation de l'état 'data' vide
+   const [data, setData] = useState([]);
 
   useEffect(() => {
     // Récupération des données depuis l'URL '/RevenueCategorie'
     fetch('http://localhost:3000/AchatType')
     .then(res => res.json())
     .then(data => {
-      // Filtrer les données pour n'afficher que les valeurs de "cogs" inférieures ou égales à 250
-      const filteredData = data.filter(entry => entry.cogs <= 250);
-      setData(filteredData);
+      // Mise à jour l'etat 'data' avec les données récupérées
+      setData(data);
     });
 }, []);
-//pour l'affichage des graphes 
+ // returner le chart avec les données 'data'
   return (
-   
+   <div><h3>Stastistiques de nombre total des achats par type de client</h3>
     <BarChart width={600} height={300} data={data}>
       <XAxis dataKey="Customer type" />
       <YAxis />
@@ -24,6 +25,7 @@ function MyComponent() {
       <Tooltip />
       <Bar dataKey="cogs" fill="#8884d8"  />
     </BarChart>
+    </div>
   );
 }
 
